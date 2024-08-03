@@ -25,3 +25,6 @@ while True:
     time.sleep(10)  # Adjust the frequency as needed
 
 producer.close()
+
+
+
