@@ -8,7 +8,7 @@ producer = KafkaProducer(
     value_serializer=lambda v: json.dumps(v).encode('utf-8')
 )
 
-url = 'https://api.coinbase.com/v2/prices/spot?currency=USD'
+url = 'https://api.coinbase.com/v2/prices/buy?currency=USD'
 
 def fetch_coinbase_data():
     response = requests.get(url)
@@ -20,7 +20,8 @@ def fetch_coinbase_data():
 while True:
     data = fetch_coinbase_data()
     if data:
-        producer.send('coinbase', data)
+        data['topic']= 'buy'
+        producer.send('buy', data)
         print(f"Sent: {data}")
     time.sleep(5)  # Adjust the frequency as needed
 
